@@ -48,7 +48,7 @@ public class CodeBranch
 
     public string Image (int branchIndex)
     {
-        var img = "Branch " + branchIndex.ToString() + ":";
+        var img = "BRANCH_" + branchIndex.ToString() + ":";
         foreach (var ln in Lines)
         {
             img += "\n " + ln.Image();
