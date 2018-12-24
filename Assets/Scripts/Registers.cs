@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using UnityEngine;
@@ -8,14 +9,14 @@ public class Registers : Singleton<Registers>
 {
     public int Size;
 
-    public ReadOnlyCollection<IAtomicAction> Contents {
+    public ReadOnlyCollection<AtomicAction> Contents {
         get {
-            return new List<IAtomicAction>(idleQueue).AsReadOnly();
+            return new List<AtomicAction>(idleQueue).AsReadOnly();
         }
     }
 
-    Queue<IAtomicAction> idleQueue; // for things the user sees, waiting to be flushed
-    Queue<IAtomicAction> runQueue; // queue of all actions being executed
+    Queue<AtomicAction> idleQueue; // for things the user sees, waiting to be flushed
+    Queue<AtomicAction> runQueue; // queue of all actions being executed
 
     bool running;
 
@@ -27,13 +28,21 @@ public class Registers : Singleton<Registers>
     void Start()
     {
         Clock.Instance.OnTick += flushAndRun;
-        idleQueue = new Queue<IAtomicAction>();
-        runQueue = new Queue<IAtomicAction>();
+        idleQueue = new Queue<AtomicAction>();
+        runQueue = new Queue<AtomicAction>();
     }
 
-    public void AddAction (IAtomicAction action)
+    public void AddAction (AtomicAction action)
     {
         idleQueue.Enqueue(action);
+    }
+
+    public void AddActions (ICollection<AtomicAction> actions)
+    {
+        foreach (var a in actions)
+        {
+            AddAction(a);
+        }
     }
 
     public bool IsFull ()
