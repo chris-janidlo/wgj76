@@ -17,6 +17,11 @@ public class BranchButton : MonoBehaviour
         button.onClick.AddListener(click);
     }
 
+    void Update ()
+    {
+        button.interactable = (Registers.Instance.Contents.Count + Actions.Count) <= Registers.Instance.Size;
+    }
+
     public void SetText (string text, int lines)
     {
         GetComponent<Text>().text = text;
@@ -31,5 +36,11 @@ public class BranchButton : MonoBehaviour
     {
         Registers.Instance.AddActions(Actions);
         button.interactable = false;
+
+        var next = CodePage.ActivePage.NextPage;
+        if (next != null)
+        {
+            CodePage.ActivePage = CodePage.ActivePage.NextPage;
+        }
     }
 }

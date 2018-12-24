@@ -24,6 +24,7 @@ public class CodePage : ScriptableObject
     public static event Action<CodePage> OnActivePageChange;
 
     public List<CodeBranch> Branches;
+    public CodePage NextPage;
 }
 
 [Serializable]

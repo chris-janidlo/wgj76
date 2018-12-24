@@ -34,7 +34,10 @@ public class Registers : Singleton<Registers>
 
     public void AddAction (AtomicAction action)
     {
-        idleQueue.Enqueue(action);
+        if (idleQueue.Count < Size)
+        {
+            idleQueue.Enqueue(action);
+        }
     }
 
     public void AddActions (ICollection<AtomicAction> actions)
