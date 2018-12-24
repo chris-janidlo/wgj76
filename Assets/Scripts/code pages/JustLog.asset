@@ -17,4 +17,6 @@ MonoBehaviour:
     - Tokens:
       - {fileID: 11400000, guid: c15a2450a9cb3470da961186b3b1ff2a, type: 2}
     - Tokens:
-      - {fileID: 11400000, guid: e1c3ec69aabc14e7fa0d5462b1be0456, type: 2}
+      - {fileID: 11400000, guid: c15a2450a9cb3470da961186b3b1ff2a, type: 2}
+  NextPage: {fileID: 11400000, guid: 2e2742f9eddbb428f918bce9dc1c0866, type: 2}
+  DisplayName: 0xBEEF

@@ -25,6 +25,7 @@ public class CodePage : ScriptableObject
 
     public List<CodeBranch> Branches;
     public CodePage NextPage;
+    public string DisplayName;
 }
 
 [Serializable]

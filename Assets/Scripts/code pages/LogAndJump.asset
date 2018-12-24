@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7198f7dfc475440d09220d5a8b37f01a, type: 3}
   m_Name: LogAndJump
   m_EditorClassIdentifier: 
-  Branches: []
+  Branches:
+  - Lines:
+    - Tokens:
+      - {fileID: 11400000, guid: c15a2450a9cb3470da961186b3b1ff2a, type: 2}
+    - Tokens:
+      - {fileID: 11400000, guid: e1c3ec69aabc14e7fa0d5462b1be0456, type: 2}
   NextPage: {fileID: 0}
+  DisplayName: 0xBABE

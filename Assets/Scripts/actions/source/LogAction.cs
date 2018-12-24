@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LogAction", menuName = "Actions/Log")]
+[CreateAssetMenu(fileName = "Log", menuName = "Actions/Log")]
 public class LogAction : AtomicAction
 {
     public string PrintValue;

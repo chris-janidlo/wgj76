@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SourceDisplay : MonoBehaviour
 {
     public BranchButton BranchDisplayPrefab;
+    public Text Tailer;
 
     List<BranchButton> branchDisplays;
 
@@ -35,5 +36,15 @@ public class SourceDisplay : MonoBehaviour
 
             branchDisplays.Add(button);
         }
+
+        if (newPage.NextPage != null)
+        {
+            Tailer.text = "GOTO " + newPage.NextPage.DisplayName;
+        }
+        else
+        {
+            Tailer.text = "";
+        }
+        Tailer.transform.SetAsLastSibling();
     }
 }
