@@ -23,7 +23,7 @@ public class BranchButton : MonoBehaviour
 
         var rt = GetComponent<RectTransform>();
         var sd = rt.sizeDelta;
-        rt.sizeDelta = new Vector2(sd.x, sd.y * lines);
+        rt.sizeDelta = new Vector2(sd.x, GetComponent<Text>().fontSize * lines);
         rt.localScale = new Vector3(1, 1, 1); // counteract canvas resizing (if this line isn't here, the actual observed scale is 1/(resolution / base_resolution) which is tiny)
     }
 
