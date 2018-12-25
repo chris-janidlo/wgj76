@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6fe0a5e28f4849a4be2a6ada3a63392, type: 3}
-  m_Name: WheelPushLeft100
+  m_Script: {fileID: 11500000, guid: 2f6af5b52c9fe4f458dcac07be29f8a8, type: 3}
+  m_Name: WheelThrottleAllOff
   m_EditorClassIdentifier: 
-  Wheel: 0
-  TorquePercent: 1
+  ThrottleValue: 0
+  WheelsToChange: 0000000001000000

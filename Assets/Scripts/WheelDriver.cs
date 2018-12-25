@@ -8,128 +8,113 @@ public class WheelDriver : Singleton<WheelDriver>
 {
     public float MaxWheelTorque = 20;
 
+    public AnimationCurve AccelCurve, DecelCurve;
+    public float AccelTime => AccelCurve.keys[AccelCurve.keys.Length - 1].time;
+    public float DecelTime => DecelCurve.keys[DecelCurve.keys.Length - 1].time;
+
     [SerializeField]
     WheelCollider leftWheel = null, rightWheel = null; // initialize in inspector
 
-    private class WheelData
+    private class individualWheelDriver
     {
-        public float? PercentRegister;
-        public float TorqueMemory;
-        public bool Idle;
+        public float Power;
+        public bool Throttled = true;
+        public bool ThrottledChanged;
+
+        public float Torque => wheel.motorTorque;
+
+        WheelCollider wheel;
+        float accelTimeMax, accelTimer;
+        bool celerating; // accelerating or decelerating
+
+        public individualWheelDriver (WheelCollider wheel)
+        {
+            this.wheel = wheel;
+        }
+
+        public void ApplyTorque (float dt)
+        {
+            var wd = WheelDriver.Instance;
+
+            if (ThrottledChanged)
+            {
+                accelTimeMax = Throttled ? wd.DecelTime : wd.AccelTime;
+                ThrottledChanged = false;
+                celerating = true;
+            }
+
+            if (celerating)
+            {
+                if (accelTimer < accelTimeMax)
+                {
+                    var curve = Throttled ? wd.DecelCurve : wd.AccelCurve;
+                    wheel.motorTorque = Power * wd.MaxWheelTorque * curve.Evaluate(accelTimer);
+                    accelTimer += dt;
+                }
+                else
+                {
+                    Power = Throttled ? 0 : 1;
+                    celerating = false;
+                }
+            }
+            else
+            {
+                wheel.motorTorque = Power * wd.MaxWheelTorque;
+            }
+        }
     }
-    WheelData leftData, rightData;
+    individualWheelDriver leftDriver, rightDriver;
 
     void Awake ()
     {
-        leftData = new WheelData();
-        rightData = new WheelData();
+        leftDriver = new individualWheelDriver(leftWheel);
+        rightDriver = new individualWheelDriver(rightWheel);
         SingletonSetInstance(this, true);
     }
 
     void Update ()
     {
-        if (leftData.Idle)
-        {
-            leftWheel.motorTorque = leftData.TorqueMemory;
-        }
-        if (rightData.Idle)
-        {
-            rightWheel.motorTorque = rightData.TorqueMemory;
-        }
+        var dt = Time.deltaTime;
+        leftDriver.ApplyTorque(dt);
+        rightDriver.ApplyTorque(dt);
     }
 
-    // percent must be in range [-1, 1], or an exception will be thrown
-    public void TorqueWheel (WheelIndicator wheel, float percent)
+    public void SetPower (WheelIndicator wheel, float power)
     {
-        assertPercent(percent);
-
-        var torque = MaxWheelTorque * percent;
-
+        assertPercent(power);
         switch (wheel)
         {
             case WheelIndicator.Left:
-                leftWheel.motorTorque = torque;
-                leftData.TorqueMemory = torque;
+                leftDriver.Power = power;
                 break;
             case WheelIndicator.Right:
-                rightWheel.motorTorque = torque;
-                rightData.TorqueMemory = torque;
+                rightDriver.Power = power;
                 break;
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + wheel);
         }
     }
 
-    public float GetWheelTorquePercent (WheelIndicator wheel)
+    public void SetThrottled (WheelIndicator wheel, bool throttled)
     {
         switch (wheel)
         {
             case WheelIndicator.Left:
-                return leftWheel.motorTorque / MaxWheelTorque;
-            case WheelIndicator.Right:
-                return rightWheel.motorTorque / MaxWheelTorque;
-            default: // should not happen
-                throw new System.Exception("Reached unexpected default in switch statement while switching on " + wheel);
-        }
-    }
-
-    public void TryTorqueBoth (float? left, float? right)
-    {
-        if (left != null)
-        {
-            WheelDriver.Instance.TorqueWheel(WheelIndicator.Left, (float) left);
-        }
-
-        if (right != null)
-        {
-            WheelDriver.Instance.TorqueWheel(WheelIndicator.Right, (float) right);
-        }
-    }
-
-    public void StoreWheelPercent (WheelIndicator wheel, float percent)
-    {
-        assertPercent(percent);
-        switch (wheel)
-        {
-            case WheelIndicator.Left:
-                leftData.PercentRegister = percent;
+                if (throttled != leftDriver.Throttled)
+                {
+                    leftDriver.Throttled = throttled;
+                    leftDriver.ThrottledChanged = true;
+                }
                 break;
             case WheelIndicator.Right:
-                rightData.PercentRegister = percent;
+                if (throttled != rightDriver.Throttled)
+                {
+                    rightDriver.Throttled = throttled;
+                    rightDriver.ThrottledChanged = true;
+                }
                 break;
-        }
-    }
-
-    public float? PopWheelPercents (WheelIndicator wheel)
-    {
-        float? val;
-        switch (wheel)
-        {
-            case WheelIndicator.Left:
-                val = leftData.PercentRegister;
-                leftData.PercentRegister = null;
-                return val;
-            case WheelIndicator.Right:
-                val = rightData.PercentRegister;
-                rightData.PercentRegister = null;
-                return val;
-            default: // should not happen
-                throw new System.Exception("Reached unexpected default in switch statement while switching on " + wheel);
-        }
-    }
-
-    public void SetIdleState (bool state, WheelIndicator firstWheel, params WheelIndicator[] otherWheels)
-    {
-        switch (firstWheel)
-        {
-            case WheelIndicator.Left:
-                leftData.Idle = state;
-                break;
-            case WheelIndicator.Right:
-                rightData.Idle = state;
-                break;
-        }
-        if (otherWheels.Length > 0)
-        {
-            SetIdleState(state, otherWheels[0], otherWheels.Skip(1).ToArray());
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + wheel);
         }
     }
 
