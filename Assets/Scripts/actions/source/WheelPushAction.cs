@@ -9,10 +9,12 @@ public class WheelPushAction : AtomicAction
     [Range(-1, 1)]
     public float TorquePercent;
 
-	public override string SourceDisplayString => Wheel + " wheel at " + PercentageString + " PWR";
-	public override string RegisterDisplayString => Wheel + " wheel: " + PercentageString;
+	public override string SourceDisplayString =>
+        Wheel.ToShortString() + " throttle @ " + PercentageString;
+	public override string RegisterDisplayString =>
+        Wheel.ToShortString() + " THROT: " + PercentageString;
     
-    string PercentageString => string.Format("{0:P1}", TorquePercent);
+    string PercentageString => Mathf.Round(TorquePercent * 100) + "%";
 
 	public override IEnumerator Execute()
 	{

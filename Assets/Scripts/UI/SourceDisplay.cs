@@ -39,7 +39,7 @@ public class SourceDisplay : MonoBehaviour
 
         if (newPage.NextPage != null)
         {
-            Tailer.text = "GOTO " + newPage.NextPage.DisplayName;
+            Tailer.text = "Go to " + newPage.NextPage.DisplayName;
         }
         else
         {

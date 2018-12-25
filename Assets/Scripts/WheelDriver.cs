@@ -9,7 +9,7 @@ public class WheelDriver : Singleton<WheelDriver>
     public float MaxWheelTorque = 20;
 
     [SerializeField]
-    WheelCollider leftWheel, rightWheel;
+    WheelCollider leftWheel = null, rightWheel = null; // initialize in inspector
 
     private class WheelData
     {
@@ -145,4 +145,20 @@ public class WheelDriver : Singleton<WheelDriver>
 public enum WheelIndicator
 {
     Left, Right
+}
+
+public static class WheelIndicatorExtensions
+{
+    public static string ToShortString (this WheelIndicator self)
+    {
+        switch (self)
+        {
+            case WheelIndicator.Left:
+                return "L";
+            case WheelIndicator.Right:
+                return "R";
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + self);
+        }
+    }
 }
