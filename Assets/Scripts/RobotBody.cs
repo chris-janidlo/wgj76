@@ -18,7 +18,7 @@ public class RobotBody : Singleton<RobotBody>
     {
         if (Mathf.Abs(percent) > 1)
         {
-            // throw exception
+            throw new System.Exception("Torque percent value " + percent + " is out of range [-1, 1].");
         }
 
         var torque = MaxWheelTorque * percent;
