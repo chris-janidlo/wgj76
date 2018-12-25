@@ -121,6 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107391158}
+  - component: {fileID: 107391159}
   m_Layer: 0
   m_Name: Wheels
   m_TagString: Untagged
@@ -139,11 +140,26 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 920307285}
   - {fileID: 693583880}
+  - {fileID: 920307285}
   m_Father: {fileID: 2100645668}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &107391159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107391157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 536eb1502c355414e98823cec7ca39ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxWheelTorque: 10
+  leftWheel: {fileID: 693583881}
+  rightWheel: {fileID: 920307286}
 --- !u!1 &130061197
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +964,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 614609472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.32, y: 0, z: 2.29}
+  m_LocalPosition: {x: 0.12, y: 1.77, z: 5.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 510237066}
@@ -1041,7 +1057,7 @@ PrefabInstance:
     - target: {fileID: 3652638520642596122, guid: 239ddb52e7d3d448fa370444496f8218,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3652638520642596122, guid: 239ddb52e7d3d448fa370444496f8218,
         type: 3}
@@ -1095,7 +1111,7 @@ GameObject:
   - component: {fileID: 955124606}
   - component: {fileID: 955124607}
   m_Layer: 0
-  m_Name: Registers
+  m_Name: CommandRegisters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1987,7 +2003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a9f93b67ad9e487c99b9477c0a3fc06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialCodePage: {fileID: 11400000, guid: 3e57a996d6f184994a62a4211d99702f, type: 2}
+  InitialCodePage: {fileID: 11400000, guid: 32554e7fb9f8b411dbe6b80f52cbd570, type: 2}
 --- !u!4 &1652965541
 Transform:
   m_ObjectHideFlags: 0
@@ -2315,7 +2331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1748774763}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 0, z: -1.57}
+  m_LocalPosition: {x: 2.02, y: 0, z: -0.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 510237066}
@@ -2596,7 +2612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2100645663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: -10}
+  m_LocalPosition: {x: 0, y: 0.95, z: -14.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1126651935}
@@ -2616,9 +2632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ce54913c854f4b62a7b1d80310de967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxWheelTorque: 5
-  LeftWheel: {fileID: 693583881}
-  RightWheel: {fileID: 920307286}
 --- !u!54 &2100645670
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2822,7 +2835,7 @@ PrefabInstance:
     - target: {fileID: 3652638520642596122, guid: 239ddb52e7d3d448fa370444496f8218,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3652638520642596122, guid: 239ddb52e7d3d448fa370444496f8218,
         type: 3}

@@ -18,7 +18,7 @@ public class RegisterDisplay : MonoBehaviour
     void Update()
     {
         text.text = "";
-        foreach (var action in Registers.Instance.Contents)
+        foreach (var action in CommandRegisters.Instance.Contents)
         {
             text.text += action.RegisterDisplayString + "\n";
         }

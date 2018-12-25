@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SynchWheelAction", menuName = "Actions/WheelSynch")]
+[CreateAssetMenu(fileName = "SynchWheelAction", menuName = "Actions/Wheels/Move Single")]
 public class SynchronousWheelAction : AtomicAction
 {
     public WheelIndicator Wheel;
@@ -19,10 +19,10 @@ public class SynchronousWheelAction : AtomicAction
         float timer = 0;
         while (timer <= timeMax)
         {
-            RobotBody.Instance.TorqueWheel(Wheel, TorqueCurve.Evaluate(timer));
+            WheelDriver.Instance.TorqueWheel(Wheel, TorqueCurve.Evaluate(timer));
             timer += Time.deltaTime;
             yield return null;
         }
-        RobotBody.Instance.TorqueWheel(Wheel, TorqueCurve.keys[len - 1].value);
+        WheelDriver.Instance.TorqueWheel(Wheel, TorqueCurve.keys[len - 1].value);
 	}
 }

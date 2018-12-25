@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 using crass;
 
-public class Registers : Singleton<Registers>
+public class CommandRegisters : Singleton<CommandRegisters>
 {
     public int Size;
 
