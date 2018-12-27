@@ -59,7 +59,7 @@ public class WheelDriver : Singleton<WheelDriver>
             }
             else
             {
-                wheel.motorTorque = Power * wd.MaxWheelTorque;
+                if (!Throttled) wheel.motorTorque = Power * wd.MaxWheelTorque;
             }
         }
     }
@@ -95,6 +95,19 @@ public class WheelDriver : Singleton<WheelDriver>
         }
     }
 
+    public float GetPower (WheelIndicator wheel)
+    {
+        switch (wheel)
+        {
+            case WheelIndicator.Left:
+                return leftDriver.Power;
+            case WheelIndicator.Right:
+                return rightDriver.Power;
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + wheel);
+        }
+    }
+
     public void SetThrottled (WheelIndicator wheel, bool throttled)
     {
         switch (wheel)
@@ -113,6 +126,32 @@ public class WheelDriver : Singleton<WheelDriver>
                     rightDriver.ThrottledChanged = true;
                 }
                 break;
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + wheel);
+        }
+    }
+
+    public bool GetThrottled (WheelIndicator wheel)
+    {
+        switch (wheel)
+        {
+            case WheelIndicator.Left:
+                return leftDriver.Throttled;
+            case WheelIndicator.Right:
+                return rightDriver.Throttled;
+            default:
+                throw new System.Exception("Unexpected default case while switching on " + wheel);
+        }
+    }
+
+    public float GetTorque (WheelIndicator wheel)
+    {
+        switch (wheel)
+        {
+            case WheelIndicator.Left:
+                return leftDriver.Torque;
+            case WheelIndicator.Right:
+                return rightDriver.Torque;
             default:
                 throw new System.Exception("Unexpected default case while switching on " + wheel);
         }
