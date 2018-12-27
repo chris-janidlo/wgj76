@@ -53,7 +53,7 @@ public class WheelDriver : Singleton<WheelDriver>
                 }
                 else
                 {
-                    Power = Throttled ? 0 : 1;
+                    if (Throttled) Power = 0;
                     celerating = false;
                 }
             }

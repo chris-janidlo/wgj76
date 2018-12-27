@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CameraRigRotator : MonoBehaviour
 {
     public float RotationSpeed;
-    public Button Left, Right;
+    public Button Left, Right, Reset;
 
     Quaternion targetRotation;
 
@@ -14,12 +14,13 @@ public class CameraRigRotator : MonoBehaviour
     {
         Left.onClick.AddListener(rotateLeft);
         Right.onClick.AddListener(rotateRight);
+        Reset.onClick.AddListener(reset);
         targetRotation = transform.rotation;
     }
 
     void Update ()
     {
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, RotationSpeed * Time.deltaTime);
+        transform.localRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, RotationSpeed * Time.deltaTime);
     }
 
     void rotate (bool dirFlag)
@@ -36,5 +37,10 @@ public class CameraRigRotator : MonoBehaviour
     void rotateRight ()
     {
         rotate(false);
+    }
+
+    void reset ()
+    {
+        targetRotation = Quaternion.identity;
     }
 }

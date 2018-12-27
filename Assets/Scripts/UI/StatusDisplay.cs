@@ -47,7 +47,6 @@ public class StatusDisplay : MonoBehaviour
     string transformHeading (Transform tform)
     {
         var deg = tform.rotation.eulerAngles.y;
-        Debug.Log(deg);
 
         // clockwise from the top
         string[] heading_names = {"N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"};

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7198f7dfc475440d09220d5a8b37f01a, type: 3}
-  m_Name: ForwardOrWait
+  m_Name: AllDirections
   m_EditorClassIdentifier: 
   Branches:
   - Lines:
@@ -20,6 +20,18 @@ MonoBehaviour:
       - {fileID: 11400000, guid: a5320a480b5bc408cb13239190c82513, type: 2}
   - Lines:
     - Tokens:
-      - {fileID: 11400000, guid: 8904988bab53948998c853701c4750c6, type: 2}
+      - {fileID: 11400000, guid: 825ba32853a914ec8a16297b1182e650, type: 2}
+    - Tokens:
+      - {fileID: 11400000, guid: d06c5b447c57947baace7b535c830b68, type: 2}
+  - Lines:
+    - Tokens:
+      - {fileID: 11400000, guid: 0412fb63ccfec46a4bb001b2bfaf4125, type: 2}
+    - Tokens:
+      - {fileID: 11400000, guid: a5320a480b5bc408cb13239190c82513, type: 2}
+  - Lines:
+    - Tokens:
+      - {fileID: 11400000, guid: 0412fb63ccfec46a4bb001b2bfaf4125, type: 2}
+    - Tokens:
+      - {fileID: 11400000, guid: d06c5b447c57947baace7b535c830b68, type: 2}
   NextPage: {fileID: 11400000, guid: 38c04e861462f403f850afcd15e8d821, type: 2}
   DisplayName: FLOW
