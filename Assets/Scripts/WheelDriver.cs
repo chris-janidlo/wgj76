@@ -59,7 +59,7 @@ public class WheelDriver : Singleton<WheelDriver>
             }
             else
             {
-                if (!Throttled) wheel.motorTorque = Power * wd.MaxWheelTorque;
+                wheel.motorTorque = Throttled ? 0 : Power * wd.MaxWheelTorque;
             }
         }
     }
